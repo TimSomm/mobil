@@ -14,8 +14,6 @@ import android.widget.Toast;
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.model.User;
 import com.example.mobil.model.UserPermissions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,7 +24,6 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegisterActivity.class.getName();
 
     private final FirebaseClient firebaseClient = new FirebaseClient();
-    private final FirebaseAuth firebaseAuth = firebaseClient.getAuthInstance();
 
     private EditText firstNameEditText;
     private EditText lastNameEditText;
@@ -76,18 +73,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         User user = new User(firstName, lastName, email, password, birthDate, UserPermissions.ROLE_QUEST);
 
-//        TODO törölni, ha megvan a feladat
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            currentUser.delete();
-        }
-
-        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
+        firebaseClient.registerWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.i(LOG_TAG, "success");
+                firebaseClient.saveUser(user, firebaseClient.getCurrentUser());
+                Toast.makeText(RegisterActivity.this, "Sikeres regisztráció!", Toast.LENGTH_LONG).show();
                 navigateToHome();
             } else {
-                Log.i(LOG_TAG, "error");
+                Toast.makeText(RegisterActivity.this, "Ilyen e-mail címmel már van regisztrálva fiók", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
