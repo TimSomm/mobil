@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">mobil</string>
+    <string name="welcome">Üdvözöllek</string>
+    <string name="descriptionMain">Regisztrálj, jelentkezz be, vagy böngéssz kinálatunkból</string>
+    <string name="registration">Regisztráció</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="searchMain">Böngéssz!</string>
+    <string name="firstName">Keresztnév</string>
+    <string name="lastName">Vezetéknév</string>
+    <string name="password">Jelszó</string>
+    <string name="passwordAgain">Jelszó mégegyszer</string>
+    <string name="birthDate">Születési dátum</string>
+    <string name="cancel">Vissza</string>
+    <string name="email">Email</string>
+</resources>
