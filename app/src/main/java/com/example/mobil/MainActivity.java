@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.mobil.model.FirebaseClient;
 
@@ -14,25 +15,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (firebaseClient.getCurrentUser() != null) {
-            navigateToHome();
+            navigateTo(new Intent(this, HomeActivity.class));
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button registerButton = findViewById(R.id.register);
+        Button loginButton = findViewById(R.id.login);
+
+        registerButton.setOnClickListener(view -> {
+            navigateTo(new Intent(this, RegisterActivity.class));
+        });
+
+        loginButton.setOnClickListener(view -> {
+            navigateTo(new Intent(this, LoginActivity.class));
+        });
     }
 
-    private void navigateToHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-    }
-
-    public void register(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-    public void login(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
+    private void navigateTo(Intent intent) {
         startActivity(intent);
     }
 }

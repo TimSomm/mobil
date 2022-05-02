@@ -42,13 +42,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="88dp"
-            android:onClick="register"
             android:text="@string/registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:ignore="UsingOnClickInXml" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <Button
             android:id="@+id/login"
@@ -59,9 +57,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register"
-            android:onClick="login"
-            tools:ignore="UsingOnClickInXml" />
+            app:layout_constraintTop_toBottomOf="@+id/register" />
 
         <Button
             android:id="@+id/search"

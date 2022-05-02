@@ -36,10 +36,6 @@ public class User {
      */
     private String password;
     /**
-     * A User jogköre
-     */
-    private String role;
-    /**
      * Törölt-e a User
      */
     private boolean deleted;
@@ -57,14 +53,13 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, String role) {
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName = lastName.toLowerCase(Locale.ROOT)+firstName.toLowerCase(Locale.ROOT);
         this.formattedFullName = lastName.substring(0, 1).toUpperCase(Locale.ROOT) + lastName.substring(1) + " " + firstName.substring(0, 1).toUpperCase(Locale.ROOT) + firstName.substring(1);
         this.email = email;
         this.password = password;
-        this.role = role;
         this.deleted = false;
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
@@ -123,14 +118,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public boolean isDeleted() {
         return deleted;
     }
@@ -153,23 +140,5 @@ public class User {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public boolean hasRight(String right, String role) {
-        try {
-            return UserPermissions.roleHasRight(right, role);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean softDelete() {
-        if (!this.isDeleted()) {
-            return false;
-        }
-
-        this.setDeleted(true);
-        return true;
     }
 }

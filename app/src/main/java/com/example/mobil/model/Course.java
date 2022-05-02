@@ -11,19 +11,23 @@ public class Course {
     private int userCount;
     private User owner;
     private boolean deleted;
-    private Date created_at;
-    private Date updated_at;
+    private float price;
+    private String start_date;
+    private String created_at;
+    private String updated_at;
 
     public Course() {
     }
 
-    public Course(String title, String category, ArrayList<User> usersList, int userCount, User owner, boolean deleted, Date created_at, Date updated_at) {
+    public Course(String title, String category, ArrayList<User> usersList, int userCount, User owner, boolean deleted, float price, String start_date, String created_at, String updated_at) {
         this.title = title;
         this.category = category;
         this.usersList = usersList;
         this.userCount = userCount;
         this.owner = owner;
         this.deleted = deleted;
+        this.price = price;
+        this.start_date = start_date;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -84,19 +88,35 @@ public class Course {
         this.deleted = deleted;
     }
 
-    public Date getCreated_at() {
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
+    public String getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
 }

@@ -2,23 +2,15 @@ package com.example.mobil;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.model.User;
-import com.example.mobil.model.UserPermissions;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegisterActivity.class.getName();
@@ -45,9 +37,20 @@ public class RegisterActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.registerEmailInput);
         passwordEditText = findViewById(R.id.registerPasswordInput);
         passwordAgainEditText = findViewById(R.id.registerPasswordAgainInput);
+
+        Button registerButton = findViewById(R.id.registerButton);
+        Button cancelButton = findViewById(R.id.cancelButton);
+
+        registerButton.setOnClickListener(view -> {
+            register();
+        });
+
+        cancelButton.setOnClickListener(view -> {
+            finish();
+        });
     }
 
-    public void register(View view) {
+    public void register() {
         String firstName = firstNameEditText.getText().toString();
         String lastName = lastNameEditText.getText().toString();
         String email = emailEditText.getText().toString();
@@ -70,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        User user = new User(firstName, lastName, email, password, UserPermissions.ROLE_NORMAL);
+        User user = new User(firstName, lastName, email, password);
 
         firebaseClient.registerWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -87,9 +90,5 @@ public class RegisterActivity extends AppCompatActivity {
     private void navigateToHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
-    }
-
-    public void cancel(View view) {
-        finish();
     }
 }

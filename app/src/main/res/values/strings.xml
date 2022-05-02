@@ -17,4 +17,6 @@
     <string name="own_courses">Saját kurzusok</string>
     <string name="profile">Profil</string>
     <string name="logout">Kijelentkezés</string>
+    <string name="datas">Adatok</string>
+    <string name="save">Mentés</string>
 </resources>
