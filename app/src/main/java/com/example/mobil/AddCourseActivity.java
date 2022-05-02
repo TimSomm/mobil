@@ -36,14 +36,14 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
 
-        Button cancelButton = findViewById(R.id.addCourseCancelButton);
-        Button saveButton = findViewById(R.id.addCourseButton);
+        Button cancelButton = findViewById(R.id.detailsCourseCancelButton);
+        Button saveButton = findViewById(R.id.detailsCourseButton);
 
-        titleEditText = findViewById(R.id.addCourseTitleEditText);
-        shortDescriptionEditText = findViewById(R.id.addCourseShortDescriptionEditText);
-        descriptionEditText = findViewById(R.id.addCourseDescriptionEditText);
-        priceEditText = findViewById(R.id.addCoursePriceEditText);
-        startDateEditText = findViewById(R.id.addCourseStartDateEditText);
+        titleEditText = findViewById(R.id.detailsCourseTitleEditText);
+        shortDescriptionEditText = findViewById(R.id.detailsCourseShortDescriptionEditText);
+        descriptionEditText = findViewById(R.id.detailsCourseDescriptionEditText);
+        priceEditText = findViewById(R.id.detailsCoursePriceEditText);
+        startDateEditText = findViewById(R.id.detailsCourseStartDateEditText);
 
         cancelButton.setOnClickListener(view -> {
             finish();
@@ -92,6 +92,7 @@ public class AddCourseActivity extends AppCompatActivity {
             );
 
             course.setOwnerId(user.getId());
+            course.setUsersList(new ArrayList<>());
 
             firebaseClient.saveCourse(course);
             Toast.makeText(this, "Sikeres hozzáadás", Toast.LENGTH_LONG).show();

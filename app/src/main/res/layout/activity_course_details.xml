@@ -15,13 +15,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:text="@string/add_course"
+            android:text="@string/course_details"
             android:textAlignment="center"
+            android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="32sp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/detailsCourseTitleEditText"
@@ -68,12 +68,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:ems="10"
+            android:hint="@string/add_course_start_date"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsCoursePriceEditText"
-            android:hint="@string/add_course_start_date"/>
+            app:layout_constraintTop_toBottomOf="@+id/detailsCoursePriceEditText"/>
 
         <EditText
             android:id="@+id/detailsCourseDescriptionEditText"
@@ -95,23 +95,72 @@
             android:id="@+id/detailsCourseButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="52dp"
             android:text="@string/save"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsCourseStartDateEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseUserCount" />
+
+        <Button
+            android:id="@+id/detailsCourseLeaveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="@string/leave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseUserCount" />
+
+        <Button
+            android:id="@+id/detailsCourseEnrollButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="@string/join"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseUserCount" />
 
         <Button
             android:id="@+id/detailsCourseCancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="122dp"
             android:backgroundTint="#CDDC39"
             android:text="@string/cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsCourseButton" />
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseUserCount" />
+
+        <Button
+            android:id="@+id/detailsCourseDeleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#832424"
+            android:text="@string/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseCancelButton" />
+
+        <EditText
+            android:id="@+id/detailsCourseUserCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/course_count"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsCourseStartDateEditText"
+            android:focusable="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

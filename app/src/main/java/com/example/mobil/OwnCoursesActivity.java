@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class OwnCoursesActivity extends AppCompatActivity {
+public class OwnCoursesActivity extends AppCompatActivity implements OwnCourseAdapter.OnCourseListener{
     private final FirebaseClient firebaseClient = new FirebaseClient();
 
     private RecyclerView recyclerView;
@@ -61,7 +62,7 @@ public class OwnCoursesActivity extends AppCompatActivity {
 
         courses = new ArrayList<>();
 
-        courseAdapter = new OwnCourseAdapter(this, courses);
+        courseAdapter = new OwnCourseAdapter(this, courses, this);
         recyclerView.setAdapter(courseAdapter);
 
         initializeData();
@@ -100,18 +101,13 @@ public class OwnCoursesActivity extends AppCompatActivity {
                                     document.getString("start_date")
                                 );
 
-                                ArrayList<String> usersList;
-
-                                if (document.getString("usersList") != null) {
-                                    usersList = new ArrayList<>(Arrays.asList(Objects.requireNonNull(document.getString("usersList")).split(";")));
-                                } else {
-                                    usersList = new ArrayList<>();
-                                }
+                                ArrayList<String> usersList = (ArrayList<String>) document.get("usersList");
 
                                 course.setUsersList(usersList);
                                 course.setCreated_at(document.getString("created_at"));
                                 course.setUserCount(Objects.requireNonNull(document.getLong("userCount")).intValue());
                                 course.setUpdated_at(document.getString("updated_at"));
+                                course.setId(document.getString("id"));
 
                                 courses.add(course);
                                 courseAdapter.notifyDataSetChanged();
@@ -119,5 +115,12 @@ public class OwnCoursesActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onCourseClick(int position) {
+        Intent intent = new Intent(this, CourseDetailsActivity.class);
+        intent.putExtra("course", courses.get(position));
+        startActivity(intent);
     }
 }

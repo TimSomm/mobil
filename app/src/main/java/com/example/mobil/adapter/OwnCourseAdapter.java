@@ -2,6 +2,8 @@ package com.example.mobil.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobil.CourseDetailsActivity;
 import com.example.mobil.R;
 import com.example.mobil.model.Course;
 
@@ -25,17 +28,19 @@ public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.View
     private ArrayList<Course> courseItemsDataAll;
     private Context context;
     private int lastPosition = -1;
+    private OnCourseListener onCourseListener;
 
-    public OwnCourseAdapter(Context context, ArrayList<Course> itemsData) {
+    public OwnCourseAdapter(Context context, ArrayList<Course> itemsData, OnCourseListener onCourseListener) {
         this.courseItemsData = itemsData;
         this.courseItemsDataAll = itemsData;
         this.context = context;
+        this.onCourseListener = onCourseListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.course_list, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.course_list, parent, false), onCourseListener);
     }
 
     @Override
@@ -88,21 +93,25 @@ public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.View
         }
     };
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         private final TextView titleTextView;
         private final TextView descriptionTextView;
         private final TextView ownerTextView;
         private final TextView priceTextView;
-        private final Button detailsButton;
+        private final OnCourseListener onCourseListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnCourseListener onCourseListener) {
             super(itemView);
+
+            this.onCourseListener = onCourseListener;
+
+            itemView.setOnClickListener(this);
 
             titleTextView = itemView.findViewById(R.id.courseTitle);
             descriptionTextView = itemView.findViewById(R.id.courseDescription);
             ownerTextView = itemView.findViewById(R.id.courseOwner);
             priceTextView = itemView.findViewById(R.id.coursePrice);
-            detailsButton = itemView.findViewById(R.id.courseDetails);
         }
 
         @SuppressLint("SetTextI18n")
@@ -112,6 +121,15 @@ public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.View
             ownerTextView.setText("Oktató: " + course.getOwnerName());
             priceTextView.setText("Ár: " + course.getPrice() + "$");
         }
+
+        @Override
+        public void onClick(View view) {
+            onCourseListener.onCourseClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnCourseListener {
+        void onCourseClick(int position);
     }
 }
 

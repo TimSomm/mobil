@@ -1,12 +1,15 @@
 package com.example.mobil.model;
 
 import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Course {
+public class Course implements Parcelable {
+    private String id;
     private String title;
     private String description;
     private String short_description;
@@ -33,6 +36,41 @@ public class Course {
 
         this.created_at = formatter.format(new Date(System.currentTimeMillis()));
         this.updated_at = created_at;
+    }
+
+    protected Course(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        short_description = in.readString();
+        usersList = in.createStringArrayList();
+        userCount = in.readInt();
+        ownerId = in.readString();
+        ownerName = in.readString();
+        price = in.readDouble();
+        start_date = in.readString();
+        created_at = in.readString();
+        updated_at = in.readString();
+    }
+
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
+        public Course createFromParcel(Parcel in) {
+            return new Course(in);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -121,5 +159,26 @@ public class Course {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeString(short_description);
+        parcel.writeStringList(usersList);
+        parcel.writeInt(userCount);
+        parcel.writeString(ownerId);
+        parcel.writeString(ownerName);
+        parcel.writeDouble(price);
+        parcel.writeString(start_date);
+        parcel.writeString(created_at);
+        parcel.writeString(updated_at);
     }
 }

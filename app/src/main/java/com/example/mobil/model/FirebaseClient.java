@@ -5,6 +5,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -60,7 +61,18 @@ public class FirebaseClient {
     }
 
     public void saveCourse(Course course) {
-        firebaseFirestore.collection(COURSE_COLLECTION).add(course);
+        DocumentReference doc = firebaseFirestore.collection(COURSE_COLLECTION).document();
+        String id = doc.getId();
+        course.setId(id);
+        doc.set(course);
+    }
+
+    public void modifyCourse(Course course) {
+        firebaseFirestore.collection(COURSE_COLLECTION).document(course.getId()).set(course);
+    }
+
+    public void deleteCourse(Course course) {
+        firebaseFirestore.collection(COURSE_COLLECTION).document(course.getId()).delete();
     }
 
     public void deleteAuthUser(FirebaseUser user) {

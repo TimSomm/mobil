@@ -28,4 +28,8 @@
     <string name="add_course_desc">A kurzus leírása</string>
     <string name="add_course_start_date">A kurzus kezdetének ideje (formátum: yyyy-MM-dd)</string>
     <string name="add_course_price">A kurzus ára</string>
+    <string name="course_details">Kurzus részletek</string>
+    <string name="course_count">A kurzus létszáma</string>
+    <string name="leave">Kilépés</string>
+    <string name="join">Jelentkezés</string>
 </resources>
