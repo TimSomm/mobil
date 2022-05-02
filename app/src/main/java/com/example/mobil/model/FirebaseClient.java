@@ -8,6 +8,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class FirebaseClient {
 
     public static final String USER_COLLECTION = "users";
@@ -52,6 +54,8 @@ public class FirebaseClient {
 
     public void saveUser(User user) {
         firebaseFirestore.collection(FirebaseClient.USER_COLLECTION).document(user.getId()).set(user);
+        Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(user.getPassword());
+        firebaseAuth.getCurrentUser().updateEmail(user.getEmail());
     }
 
     public void deleteAuthUser(FirebaseUser user) {

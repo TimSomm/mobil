@@ -40,6 +40,26 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         saveButton.setOnClickListener(view -> {
+            String password = passwordEditText.getText().toString();
+            String firstName = firstNameEditText.getText().toString();
+            String lastName = lastNameEditText.getText().toString();
+            String email = emailEditText.getText().toString();
+
+            if (password.equals("") || firstName.equals("") || lastName.equals("") || email.equals("")) {
+                Toast.makeText(ProfileActivity.this, "Minden mezőt ki kell tölteni", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (password.length() < 6) {
+                passwordEditText.setError("A jelszó legalább 6 hosszú kell legyen");
+                return;
+            }
+
+            if (!email.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])")) {
+                emailEditText.setError("Nem megfelelő email formátum!");
+                return;
+            }
+
             User newUser = new User(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString());
             newUser.setId(user.getId());
             newUser.setCreated_at(user.getCreated_at());

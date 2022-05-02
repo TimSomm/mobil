@@ -43,13 +43,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/saveProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/saveProfile"
+            tools:backgroundTint="#832424" />
 
         <Button
             android:id="@+id/cancelProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:backgroundTint="#CDDC39"
             android:text="@string/cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
