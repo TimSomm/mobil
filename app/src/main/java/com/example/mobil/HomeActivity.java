@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         welcomeTextView = findViewById(R.id.welcomeTextView);
         Button profileButton = findViewById(R.id.profile);
         Button logoutButton = findViewById(R.id.logout);
+        Button ownCourses = findViewById(R.id.ownCourses);
 
         firebaseClient.getUser(firebaseClient.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
             user = documentSnapshot.toObject(User.class);
@@ -42,6 +43,10 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(view -> {
             firebaseClient.logOut();
             navigateTo(new Intent(this, MainActivity.class));
+        });
+
+        ownCourses.setOnClickListener(view -> {
+            navigateTo(new Intent(this, OwnCoursesActivity.class));
         });
     }
 

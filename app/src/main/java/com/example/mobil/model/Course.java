@@ -6,30 +6,26 @@ import java.util.Date;
 public class Course {
     private String id;
     private String title;
-    private String category;
-    private ArrayList<User> usersList;
+    private String description;
+    private String short_description;
+    private ArrayList<String> usersList;
     private int userCount;
-    private User owner;
+    private String owner;
     private boolean deleted;
-    private float price;
+    private double price;
     private String start_date;
     private String created_at;
     private String updated_at;
 
-    public Course() {
-    }
-
-    public Course(String title, String category, ArrayList<User> usersList, int userCount, User owner, boolean deleted, float price, String start_date, String created_at, String updated_at) {
+    public Course(String title, String description, String short_description, ArrayList<String> usersList, int userCount, String owner, double price, String start_date) {
         this.title = title;
-        this.category = category;
+        this.description = description;
+        this.short_description = short_description;
         this.usersList = usersList;
         this.userCount = userCount;
         this.owner = owner;
-        this.deleted = deleted;
         this.price = price;
         this.start_date = start_date;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     public String getId() {
@@ -48,19 +44,27 @@ public class Course {
         this.title = title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public ArrayList<User> getUsersList() {
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
+
+    public ArrayList<String> getUsersList() {
         return usersList;
     }
 
-    public void setUsersList(ArrayList<User> usersList) {
+    public void setUsersList(ArrayList<String> usersList) {
         this.usersList = usersList;
     }
 
@@ -72,11 +76,11 @@ public class Course {
         this.userCount = userCount;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
@@ -88,11 +92,11 @@ public class Course {
         this.deleted = deleted;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

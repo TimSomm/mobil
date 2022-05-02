@@ -20,4 +20,6 @@
     <string name="datas">Adatok</string>
     <string name="save">Mentés</string>
     <string name="delete">Törlés</string>
+    <string name="details">Részletek</string>
+    <string name="teacher">Oktató</string>
 </resources>
