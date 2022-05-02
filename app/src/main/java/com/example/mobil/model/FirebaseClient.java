@@ -34,6 +34,10 @@ public class FirebaseClient {
         return firebaseAuth.createUserWithEmailAndPassword(email, password);
     }
 
+    public Task<AuthResult> loginWithEmailAndPasword(String email, String password) {
+        return firebaseAuth.signInWithEmailAndPassword(email, password);
+    }
+
     public FirebaseUser getCurrentUser() {
         return firebaseAuth.getCurrentUser();
     }
