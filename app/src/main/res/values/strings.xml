@@ -19,4 +19,5 @@
     <string name="logout">Kijelentkezés</string>
     <string name="datas">Adatok</string>
     <string name="save">Mentés</string>
+    <string name="delete">Törlés</string>
 </resources>

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void register() {
+    private void register() {
         String firstName = firstNameEditText.getText().toString();
         String lastName = lastNameEditText.getText().toString();
         String email = emailEditText.getText().toString();
@@ -77,7 +76,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseClient.registerWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                firebaseClient.saveUser(user, firebaseClient.getCurrentUser());
+                String uid = firebaseClient.getCurrentUser().getUid();
+                user.setId(uid);
+                firebaseClient.saveUser(user);
                 Toast.makeText(RegisterActivity.this, "Sikeres regisztráció!", Toast.LENGTH_LONG).show();
                 navigateToHome();
             } else {

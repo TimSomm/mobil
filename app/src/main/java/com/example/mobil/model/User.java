@@ -36,10 +36,6 @@ public class User {
      */
     private String password;
     /**
-     * Törölt-e a User
-     */
-    private boolean deleted;
-    /**
      * Létrehozás dátuma
      */
     private String created_at;
@@ -60,7 +56,6 @@ public class User {
         this.formattedFullName = lastName.substring(0, 1).toUpperCase(Locale.ROOT) + lastName.substring(1) + " " + firstName.substring(0, 1).toUpperCase(Locale.ROOT) + firstName.substring(1);
         this.email = email;
         this.password = password;
-        this.deleted = false;
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
 
@@ -116,14 +111,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public String getCreated_at() {

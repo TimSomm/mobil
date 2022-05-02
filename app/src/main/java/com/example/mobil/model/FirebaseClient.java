@@ -5,7 +5,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -51,28 +50,16 @@ public class FirebaseClient {
         return firebaseFirestore.collection(USER_COLLECTION).document(id).get();
     }
 
-    public void saveUser(User user, FirebaseUser currentUser) {
-        String uid = currentUser.getUid();
-        user.setId(uid);
-        firebaseFirestore.collection(FirebaseClient.USER_COLLECTION).document(uid).set(user);
+    public void saveUser(User user) {
+        firebaseFirestore.collection(FirebaseClient.USER_COLLECTION).document(user.getId()).set(user);
     }
 
     public void deleteAuthUser(FirebaseUser user) {
         user.delete();
     }
 
-    public boolean softDeleteUser(String id) {
-        DocumentReference docRef = firebaseFirestore.collection(USER_COLLECTION).document(id);
-        firebaseFirestore.runTransaction(transaction -> {
-            transaction.update(docRef, "deleted", true);
-            return true;
-        });
-        return true;
-    }
-
-    public boolean deleteUser(String id) {
-        firebaseFirestore.collection(USER_COLLECTION).document(id).delete();
-        return true;
+    public void deleteUser(User user) {
+        firebaseFirestore.collection(USER_COLLECTION).document(user.getId()).delete();
     }
 
     public CollectionReference getCollection(String collectionName) {

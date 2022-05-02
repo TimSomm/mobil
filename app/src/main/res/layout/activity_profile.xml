@@ -27,7 +27,7 @@
             android:id="@+id/saveProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="60dp"
             android:text="@string/save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -35,15 +35,26 @@
             app:layout_constraintTop_toBottomOf="@+id/passwordProfileInput" />
 
         <Button
-            android:id="@+id/cancelProfile"
+            android:id="@+id/deleteProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/cancel"
+            android:layout_marginTop="20dp"
+            android:text="@string/delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/saveProfile" />
+
+        <Button
+            android:id="@+id/cancelProfile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deleteProfile" />
 
         <EditText
             android:id="@+id/profileFirstNameInput"
