@@ -84,6 +84,15 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        navigateTo(new Intent(this, HomeActivity.class));
+    }
+
+    private void navigateTo(Intent intent) {
+        startActivity(intent);
+    }
+
     private void initData(User user) {
         firstNameEditText.setText(user.getFirstName());
         lastNameEditText.setText(user.getLastName());

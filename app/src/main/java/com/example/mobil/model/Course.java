@@ -12,18 +12,20 @@ public class Course {
     private String short_description;
     private ArrayList<String> usersList;
     private int userCount;
-    private String owner;
+    private String ownerId;
+    private String ownerName;
     private double price;
     private String start_date;
     private String created_at;
     private String updated_at;
 
-    public Course(String title, String description, String short_description, String owner, double price, String start_date) {
+    public Course(String title, String description, String short_description, String ownerId, String ownerName, double price, String start_date) {
         this.title = title;
         this.description = description;
         this.short_description = short_description;
         this.userCount = 0;
-        this.owner = owner;
+        this.ownerId = ownerId;
+        this.ownerName = ownerName;
         this.price = price;
         this.start_date = start_date;
 
@@ -73,12 +75,20 @@ public class Course {
         this.userCount = userCount;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerId(String owner) {
+        this.ownerId = owner;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public double getPrice() {

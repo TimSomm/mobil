@@ -86,11 +86,12 @@ public class AddCourseActivity extends AppCompatActivity {
                     description,
                     shortDescription,
                     firebaseClient.getCurrentUser().getUid(),
+                    user.getFormattedFullName(),
                     Double.parseDouble(price),
                     startDate
             );
 
-            course.setOwner(user.getId());
+            course.setOwnerId(user.getId());
 
             firebaseClient.saveCourse(course);
             Toast.makeText(this, "Sikeres hozzáadás", Toast.LENGTH_LONG).show();

@@ -109,8 +109,8 @@ public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.View
         public void bindTo(Course course) {
             titleTextView.setText(course.getTitle());
             descriptionTextView.setText(course.getShort_description());
-            ownerTextView.setText("Oktató: " + course.getOwner());
-            priceTextView.setText("Ár: " + course.getPrice());
+            ownerTextView.setText("Oktató: " + course.getOwnerName());
+            priceTextView.setText("Ár: " + course.getPrice() + "$");
         }
     }
 }

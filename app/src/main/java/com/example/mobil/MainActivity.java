@@ -13,23 +13,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         if (firebaseClient.getCurrentUser() != null) {
             navigateTo(new Intent(this, HomeActivity.class));
+        } else {
+            setContentView(R.layout.activity_main);
+
+            Button registerButton = findViewById(R.id.register);
+            Button loginButton = findViewById(R.id.login);
+
+            registerButton.setOnClickListener(view -> {
+                navigateTo(new Intent(this, RegisterActivity.class));
+            });
+
+            loginButton.setOnClickListener(view -> {
+                navigateTo(new Intent(this, LoginActivity.class));
+            });
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button registerButton = findViewById(R.id.register);
-        Button loginButton = findViewById(R.id.login);
-
-        registerButton.setOnClickListener(view -> {
-            navigateTo(new Intent(this, RegisterActivity.class));
-        });
-
-        loginButton.setOnClickListener(view -> {
-            navigateTo(new Intent(this, LoginActivity.class));
-        });
     }
 
     private void navigateTo(Intent intent) {

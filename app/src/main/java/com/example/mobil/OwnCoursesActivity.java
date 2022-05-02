@@ -1,5 +1,6 @@
 package com.example.mobil;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,10 +17,19 @@ import android.widget.LinearLayout;
 
 import com.example.mobil.adapter.OwnCourseAdapter;
 import com.example.mobil.model.Course;
+import com.example.mobil.model.FirebaseClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class OwnCoursesActivity extends AppCompatActivity {
+    private final FirebaseClient firebaseClient = new FirebaseClient();
 
     private RecyclerView recyclerView;
     private ArrayList<Course> courses;
@@ -57,6 +67,11 @@ public class OwnCoursesActivity extends AppCompatActivity {
         initializeData();
     }
 
+    @Override
+    public void onBackPressed() {
+        navigateTo(new Intent(this, HomeActivity.class));
+    }
+
     private void navigateTo(Intent intent) {
         startActivity(intent);
     }
@@ -66,27 +81,43 @@ public class OwnCoursesActivity extends AppCompatActivity {
 
         courses.clear();
 
-//        TODO firebase lekérdezés
+        firebaseClient.getCollection(FirebaseClient.COURSE_COLLECTION)
+                .whereEqualTo("ownerId", firebaseClient.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document: task.getResult()) {
 
-        courses.add(new Course(
-            "test",
-                "test",
-                "test",
-                "test",
-                54.99,
-                "2022-04-12"
-        ));
+                                Course course = new Course(
+                                    document.getString("title"),
+                                    document.getString("description"),
+                                    document.getString("short_description"),
+                                    document.getString("ownerId"),
+                                    document.getString("ownerName"),
+                                    Objects.requireNonNull(document.getDouble("price")),
+                                    document.getString("start_date")
+                                );
 
-        courses.add(new Course(
-                "test2",
-                "test2",
-                "test2",
-                "test2",
-                423.99,
-                "2022-01-12"
-        ));
+                                ArrayList<String> usersList;
 
-        courseAdapter.notifyDataSetChanged();
+                                if (document.getString("usersList") != null) {
+                                    usersList = new ArrayList<>(Arrays.asList(Objects.requireNonNull(document.getString("usersList")).split(";")));
+                                } else {
+                                    usersList = new ArrayList<>();
+                                }
 
+                                course.setUsersList(usersList);
+                                course.setCreated_at(document.getString("created_at"));
+                                course.setUserCount(Objects.requireNonNull(document.getLong("userCount")).intValue());
+                                course.setUpdated_at(document.getString("updated_at"));
+
+                                courses.add(course);
+                                courseAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
     }
 }
