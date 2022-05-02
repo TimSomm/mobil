@@ -1,39 +1,36 @@
 package com.example.mobil.model;
 
+import android.annotation.SuppressLint;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Course {
-    private String id;
     private String title;
     private String description;
     private String short_description;
     private ArrayList<String> usersList;
     private int userCount;
     private String owner;
-    private boolean deleted;
     private double price;
     private String start_date;
     private String created_at;
     private String updated_at;
 
-    public Course(String title, String description, String short_description, ArrayList<String> usersList, int userCount, String owner, double price, String start_date) {
+    public Course(String title, String description, String short_description, String owner, double price, String start_date) {
         this.title = title;
         this.description = description;
         this.short_description = short_description;
-        this.usersList = usersList;
-        this.userCount = userCount;
+        this.userCount = 0;
         this.owner = owner;
         this.price = price;
         this.start_date = start_date;
-    }
 
-    public String getId() {
-        return id;
-    }
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
 
-    public void setId(String id) {
-        this.id = id;
+        this.created_at = formatter.format(new Date(System.currentTimeMillis()));
+        this.updated_at = created_at;
     }
 
     public String getTitle() {
@@ -82,14 +79,6 @@ public class Course {
 
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public double getPrice() {

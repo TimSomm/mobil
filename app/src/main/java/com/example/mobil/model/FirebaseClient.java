@@ -13,6 +13,7 @@ import java.util.Objects;
 public class FirebaseClient {
 
     public static final String USER_COLLECTION = "users";
+    public static final String COURSE_COLLECTION = "courses";
     private final FirebaseAuth firebaseAuth = getAuthInstance();
     private final FirebaseFirestore firebaseFirestore = getFirestoreInstance();
 
@@ -53,9 +54,13 @@ public class FirebaseClient {
     }
 
     public void saveUser(User user) {
-        firebaseFirestore.collection(FirebaseClient.USER_COLLECTION).document(user.getId()).set(user);
+        firebaseFirestore.collection(USER_COLLECTION).document(user.getId()).set(user);
         Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(user.getPassword());
         firebaseAuth.getCurrentUser().updateEmail(user.getEmail());
+    }
+
+    public void saveCourse(Course course) {
+        firebaseFirestore.collection(COURSE_COLLECTION).add(course);
     }
 
     public void deleteAuthUser(FirebaseUser user) {

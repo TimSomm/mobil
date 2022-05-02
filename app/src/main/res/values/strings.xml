@@ -22,4 +22,10 @@
     <string name="delete">Törlés</string>
     <string name="details">Részletek</string>
     <string name="teacher">Oktató</string>
+    <string name="add_course">Kurzus készítése</string>
+    <string name="add_course_title">A kurzus címe</string>
+    <string name="add_course_short_desc">A kurzus rövid leírása (megjelenik a főoldalon)</string>
+    <string name="add_course_desc">A kurzus leírása</string>
+    <string name="add_course_start_date">A kurzus kezdetének ideje (formátum: yyyy-MM-dd)</string>
+    <string name="add_course_price">A kurzus ára</string>
 </resources>
