@@ -72,36 +72,23 @@
             android:ems="10"
             android:hint="@string/passwordAgain"
             android:inputType="textPassword"
+            android:text="123456"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerPasswordInput"
-            android:text="123456"/>
-
-        <DatePicker
-            android:id="@+id/registerBirthDateInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:ems="10"
-            android:hint="@string/birthDate"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerPasswordAgainInput" />
+            app:layout_constraintTop_toBottomOf="@+id/registerPasswordInput" />
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="52dp"
+            android:onClick="register"
             android:text="@string/registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerBirthDateInput"
-            android:onClick="register"
+            app:layout_constraintTop_toBottomOf="@+id/registerPasswordAgainInput"
             tools:ignore="UsingOnClickInXml" />
 
         <Button

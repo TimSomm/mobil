@@ -30,10 +30,13 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText passwordAgainEditText;
-    private DatePicker birthDateDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (firebaseClient.getCurrentUser() != null) {
+            navigateToHome();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -42,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.registerEmailInput);
         passwordEditText = findViewById(R.id.registerPasswordInput);
         passwordAgainEditText = findViewById(R.id.registerPasswordAgainInput);
-        birthDateDatePicker = findViewById(R.id.registerBirthDateInput);
     }
 
     public void register(View view) {
@@ -51,9 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String passwordAgain = passwordAgainEditText.getText().toString();
-        Calendar calendar = new GregorianCalendar(birthDateDatePicker.getYear(), birthDateDatePicker.getMonth(), birthDateDatePicker.getDayOfMonth());
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String birthDate = dateFormat.format(calendar.getTime());
 
 
         if (password.length() < 6) {
@@ -71,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        User user = new User(firstName, lastName, email, password, birthDate, UserPermissions.ROLE_QUEST);
+        User user = new User(firstName, lastName, email, password, UserPermissions.ROLE_NORMAL);
 
         firebaseClient.registerWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -86,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void navigateToHome() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 

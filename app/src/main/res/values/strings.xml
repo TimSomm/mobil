@@ -12,4 +12,9 @@
     <string name="birthDate">Születési dátum</string>
     <string name="cancel">Vissza</string>
     <string name="email">Email</string>
+    <string name="all_courses">Összes kurzus</string>
+    <string name="my_courses">Felvett kurzusok</string>
+    <string name="own_courses">Saját kurzusok</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Kijelentkezés</string>
 </resources>

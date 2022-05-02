@@ -7,9 +7,9 @@ public class UserPermissions {
 
     // User Role-ok
     public static final String ROLE_QUEST = "role_quest";
-    private static final String ROLE_NORMAL = "role_normal";
-    private static final String ROLE_ADMIN = "role_admin";
-    private static final String ROLE_PREMIUM = "role_premium";
+    public static final String ROLE_NORMAL = "role_normal";
+    public static final String ROLE_ADMIN = "role_admin";
+    public static final String ROLE_PREMIUM = "role_premium";
 
     // Valid User Role-ok
     private static final List<String> VALID_ROLES = Arrays.asList(

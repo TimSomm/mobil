@@ -24,6 +24,10 @@ public class User {
      */
     private String fullName;
     /**
+     * A User teljes neve, számolva a Vezeteknev + Keresztnevbol (pl.: Timer Soma)
+     */
+    private String formattedFullName;
+    /**
      * A user email címe
      */
     private String email;
@@ -31,10 +35,6 @@ public class User {
      * A user jelszava
      */
     private String password;
-    /**
-     * A User születési dátuma
-     */
-    private String birthDate;
     /**
      * A User jogköre
      */
@@ -57,13 +57,13 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, String birthDate, String role) {
+    public User(String firstName, String lastName, String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName = lastName.toLowerCase(Locale.ROOT)+firstName.toLowerCase(Locale.ROOT);
+        this.formattedFullName = lastName.substring(0, 1).toUpperCase(Locale.ROOT) + lastName.substring(1) + " " + firstName.substring(0, 1).toUpperCase(Locale.ROOT) + firstName.substring(1);
         this.email = email;
         this.password = password;
-        this.birthDate = birthDate;
         this.role = role;
         this.deleted = false;
 
@@ -103,6 +103,10 @@ public class User {
         return fullName;
     }
 
+    public String getFormattedFullName() {
+        return formattedFullName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -117,14 +121,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
     }
 
     public String getRole() {
