@@ -1,4 +1,4 @@
-package com.example.mobil;
+package com.example.mobil.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobil.R;
 import com.example.mobil.model.Course;
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.notification.NotificationHandler;
@@ -18,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.function.DoubleUnaryOperator;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 

@@ -11,8 +11,7 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.mobil.AllCoursesActivity;
-import com.example.mobil.HomeActivity;
+import com.example.mobil.activity.HomeActivity;
 import com.example.mobil.R;
 
 
@@ -53,7 +52,8 @@ public class NotificationHandler {
                 .setContentTitle("Kurzusok")
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_baseline_book_24)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
         notifyManager.notify(NOTIFICATION_ID, builder.build());
     }

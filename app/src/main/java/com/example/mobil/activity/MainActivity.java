@@ -1,4 +1,4 @@
-package com.example.mobil;
+package com.example.mobil.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.mobil.R;
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.notification.NotificationHandler;
 

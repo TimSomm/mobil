@@ -10,34 +10,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobil">
         <activity
-            android:name=".AllCoursesActivity"
+            android:name=".activity.AllCoursesActivity"
             android:exported="false" />
         <activity
-            android:name=".EnrolledCoursesActivity"
+            android:name=".activity.EnrolledCoursesActivity"
             android:exported="false" />
         <activity
-            android:name=".CourseDetailsActivity"
+            android:name=".activity.CourseDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".AddCourseActivity"
+            android:name=".activity.AddCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".OwnCoursesActivity"
+            android:name=".activity.OwnCoursesActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

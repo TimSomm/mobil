@@ -1,6 +1,4 @@
-package com.example.mobil;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.mobil.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +8,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mobil.R;
 import com.example.mobil.model.FirebaseClient;
 
 public class LoginActivity extends AppCompatActivity {

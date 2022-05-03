@@ -1,25 +1,18 @@
-package com.example.mobil;
+package com.example.mobil.activity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mobil.adapter.EnrolledCourseAdapter;
+import com.example.mobil.R;
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.model.User;
 import com.example.mobil.notification.NotificationHandler;
-import com.example.mobil.notification.NotificationJobService;
 
 public class HomeActivity extends AppCompatActivity {
     private final FirebaseClient firebaseClient = new FirebaseClient();
