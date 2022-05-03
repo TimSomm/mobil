@@ -1,7 +1,14 @@
 package com.example.mobil.model;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -56,8 +63,31 @@ public class FirebaseClient {
 
     public void saveUser(User user) {
         firebaseFirestore.collection(USER_COLLECTION).document(user.getId()).set(user);
+
+
         Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(user.getPassword());
         firebaseAuth.getCurrentUser().updateEmail(user.getEmail());
+    }
+
+    public void modifyUser(User user, String oldEmail, String oldPassword) {
+        firebaseFirestore.collection(USER_COLLECTION).document(user.getId()).set(user);
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        AuthCredential credential = EmailAuthProvider.getCredential(oldEmail, oldPassword);
+
+        firebaseUser.reauthenticate(credential)
+            .addOnCompleteListener(task -> {
+                FirebaseUser temp = FirebaseAuth.getInstance().getCurrentUser();
+                temp.updateEmail(user.getEmail());
+            });
+
+        credential = EmailAuthProvider.getCredential(firebaseUser.getEmail(), oldPassword);
+
+        firebaseUser.reauthenticate(credential)
+                .addOnCompleteListener(task -> {
+                    FirebaseUser temp = FirebaseAuth.getInstance().getCurrentUser();
+                    temp.updatePassword(user.getPassword());
+                });
     }
 
     public void saveCourse(Course course) {

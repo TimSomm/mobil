@@ -24,7 +24,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     private final FirebaseClient firebaseClient = new FirebaseClient();
     private Course course;
-    private final String currentId = firebaseClient.getCurrentUser().getUid();;
+    private String currentId;
     private final ArrayList<String> usersList = new ArrayList<>();
     private NotificationHandler notificationHandler;
 
@@ -65,6 +65,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
         course = getIntent().getParcelableExtra("course");
 
         initData();
+
+        if (firebaseClient.getCurrentUser() != null) {
+            currentId = firebaseClient.getCurrentUser().getUid();
+        }
+
         refreshButtons();
 
         cancelButton.setOnClickListener(view -> {
@@ -148,10 +153,17 @@ public class CourseDetailsActivity extends AppCompatActivity {
             leaveButton.setVisibility(View.VISIBLE);
         }
 
-        if (!currentId.equals(course.getOwnerId())) {
+        if (currentId != null) {
+            if (!currentId.equals(course.getOwnerId())) {
+                deleteButton.setVisibility(View.GONE);
+                saveButton.setVisibility(View.GONE);
+            } else {
+                leaveButton.setVisibility(View.GONE);
+                enrollButton.setVisibility(View.GONE);
+            }
+        } else {
             deleteButton.setVisibility(View.GONE);
             saveButton.setVisibility(View.GONE);
-        } else {
             leaveButton.setVisibility(View.GONE);
             enrollButton.setVisibility(View.GONE);
         }
@@ -165,7 +177,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         startDateEditText.setText(course.getStart_date());
         userCountEditText.setText(String.valueOf(course.getUserCount()));
 
-        if (!currentId.equals(course.getOwnerId())) {
+        if (currentId == null || !currentId.equals(course.getOwnerId())) {
             titleEditText.setFocusable(false);
             shortDescriptionEditText.setFocusable(false);
             descriptionEditText.setFocusable(false);

@@ -45,12 +45,12 @@ public class ProfileActivity extends AppCompatActivity {
             String lastName = lastNameEditText.getText().toString();
             String email = emailEditText.getText().toString();
 
-            if (password.equals("") || firstName.equals("") || lastName.equals("") || email.equals("")) {
-                Toast.makeText(ProfileActivity.this, "Minden mezőt ki kell tölteni", Toast.LENGTH_LONG).show();
+            if (firstName.equals("") || lastName.equals("") || email.equals("")) {
+                Toast.makeText(ProfileActivity.this, "Minden mezőt ki kell tölteni, a jelszó kivételével!", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            if (password.length() < 6) {
+            if (password.length() < 6 && !password.equals("")) {
                 passwordEditText.setError("A jelszó legalább 6 hosszú kell legyen");
                 return;
             }
@@ -60,11 +60,15 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            User newUser = new User(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString());
+            if (password.equals("")) {
+                password = user.getPassword();
+            }
+
+            User newUser = new User(firstName, lastName, email, password);
             newUser.setId(user.getId());
             newUser.setCreated_at(user.getCreated_at());
 
-            firebaseClient.saveUser(newUser);
+            firebaseClient.modifyUser(newUser, user.getEmail(), user.getPassword());
             Toast.makeText(ProfileActivity.this, "Sikeres frissítés!", Toast.LENGTH_LONG).show();
             navigateUpTo(new Intent(this, HomeActivity.class));
         });

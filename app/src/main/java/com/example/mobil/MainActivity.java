@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
             Button registerButton = findViewById(R.id.register);
             Button loginButton = findViewById(R.id.login);
+            Button searchButton = findViewById(R.id.search);
 
             registerButton.setOnClickListener(view -> {
                 navigateTo(new Intent(this, RegisterActivity.class));
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
             loginButton.setOnClickListener(view -> {
                 navigateTo(new Intent(this, LoginActivity.class));
+            });
+
+            searchButton.setOnClickListener(view -> {
+                navigateTo(new Intent(this, AllCoursesActivity.class));
             });
         }
     }

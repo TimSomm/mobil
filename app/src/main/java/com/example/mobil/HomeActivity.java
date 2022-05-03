@@ -30,41 +30,46 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
-        welcomeTextView = findViewById(R.id.welcomeTextView);
-        Button profileButton = findViewById(R.id.profile);
-        Button logoutButton = findViewById(R.id.logout);
-        Button ownCourses = findViewById(R.id.ownCourses);
-        Button enrolledCourses = findViewById(R.id.myCourses);
-        Button allCourses = findViewById(R.id.allCourse);
-
-        firebaseClient.getUser(firebaseClient.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
-            user = documentSnapshot.toObject(User.class);
-            assert user != null;
-            welcomeTextView.setText(getResources().getString(R.string.welcome) + " " + user.getFormattedFullName());
-        });
-
-        profileButton.setOnClickListener(view -> {
-            navigateTo(new Intent(this, ProfileActivity.class));
-        });
-
-        logoutButton.setOnClickListener(view -> {
-            firebaseClient.logOut();
+        if (firebaseClient.getCurrentUser() == null) {
             navigateTo(new Intent(this, MainActivity.class));
-        });
+        } else {
+            setContentView(R.layout.activity_home);
 
-        ownCourses.setOnClickListener(view -> {
-            navigateTo(new Intent(this, OwnCoursesActivity.class));
-        });
+            welcomeTextView = findViewById(R.id.welcomeTextView);
+            Button profileButton = findViewById(R.id.profile);
+            Button logoutButton = findViewById(R.id.logout);
+            Button ownCourses = findViewById(R.id.ownCourses);
+            Button enrolledCourses = findViewById(R.id.myCourses);
+            Button allCourses = findViewById(R.id.allCourse);
 
-        enrolledCourses.setOnClickListener(view -> {
-            navigateTo(new Intent(this, EnrolledCoursesActivity.class));
-        });
+            firebaseClient.getUser(firebaseClient.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                user = documentSnapshot.toObject(User.class);
+                assert user != null;
+                welcomeTextView.setText(getResources().getString(R.string.welcome) + " " + user.getFormattedFullName());
+            });
 
-        allCourses.setOnClickListener(view -> {
-            navigateTo(new Intent(this, AllCoursesActivity.class));
-        });
+            profileButton.setOnClickListener(view -> {
+                navigateTo(new Intent(this, ProfileActivity.class));
+            });
+
+            logoutButton.setOnClickListener(view -> {
+                firebaseClient.logOut();
+                navigateTo(new Intent(this, MainActivity.class));
+            });
+
+            ownCourses.setOnClickListener(view -> {
+                navigateTo(new Intent(this, OwnCoursesActivity.class));
+            });
+
+            enrolledCourses.setOnClickListener(view -> {
+                navigateTo(new Intent(this, EnrolledCoursesActivity.class));
+            });
+
+            allCourses.setOnClickListener(view -> {
+                navigateTo(new Intent(this, AllCoursesActivity.class));
+            });
+        }
     }
 
     private void navigateTo(Intent intent) {
