@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         notificationHandler.send("Siess vissza tanulni!");

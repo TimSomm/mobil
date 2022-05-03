@@ -33,8 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:text="test"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
         <EditText
             android:id="@+id/registerLastNameInput"
@@ -47,8 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerFirstNameInput"
-            android:text="test"/>
+            app:layout_constraintTop_toBottomOf="@+id/registerFirstNameInput"/>
 
         <EditText
             android:id="@+id/registerPasswordInput"
@@ -61,8 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerEmailInput"
-            android:text="123456"/>
+            app:layout_constraintTop_toBottomOf="@+id/registerEmailInput"/>
 
         <EditText
             android:id="@+id/registerPasswordAgainInput"
@@ -72,7 +69,6 @@
             android:ems="10"
             android:hint="@string/passwordAgain"
             android:inputType="textPassword"
-            android:text="123456"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,8 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerLastNameInput"
-            android:text="test@test.com"/>
+            app:layout_constraintTop_toBottomOf="@+id/registerLastNameInput"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
