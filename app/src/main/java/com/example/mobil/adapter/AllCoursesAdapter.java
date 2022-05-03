@@ -15,13 +15,13 @@ import com.example.mobil.model.Course;
 
 import java.util.ArrayList;
 
-public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.ViewHolder> {
+public class AllCoursesAdapter extends RecyclerView.Adapter<AllCoursesAdapter.ViewHolder> {
 
     private ArrayList<Course> courseItemsData;
     private Context context;
     private OnCourseListener onCourseListener;
 
-    public OwnCourseAdapter(Context context, ArrayList<Course> itemsData, OnCourseListener onCourseListener) {
+    public AllCoursesAdapter(Context context, ArrayList<Course> itemsData, OnCourseListener onCourseListener) {
         this.courseItemsData = itemsData;
         this.context = context;
         this.onCourseListener = onCourseListener;
@@ -34,7 +34,7 @@ public class OwnCourseAdapter extends RecyclerView.Adapter<OwnCourseAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OwnCourseAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Course current = courseItemsData.get(position);
 
         holder.bindTo(current);

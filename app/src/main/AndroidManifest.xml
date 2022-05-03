@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobil">
         <activity
+            android:name=".AllCoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnrolledCoursesActivity"
+            android:exported="false" />
+        <activity
             android:name=".CourseDetailsActivity"
             android:exported="false" />
         <activity

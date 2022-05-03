@@ -2,6 +2,7 @@ package com.example.mobil;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +12,13 @@ import android.widget.Toast;
 
 import com.example.mobil.model.Course;
 import com.example.mobil.model.FirebaseClient;
+import com.example.mobil.notification.NotificationHandler;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.function.DoubleUnaryOperator;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 
@@ -20,6 +26,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private Course course;
     private final String currentId = firebaseClient.getCurrentUser().getUid();;
     private final ArrayList<String> usersList = new ArrayList<>();
+    private NotificationHandler notificationHandler;
 
     private Button enrollButton;
     private Button leaveButton;
@@ -34,10 +41,13 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private EditText startDateEditText;
     private EditText userCountEditText;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
+
+        notificationHandler = new NotificationHandler(this);
 
         enrollButton = findViewById(R.id.detailsCourseEnrollButton);
         leaveButton = findViewById(R.id.detailsCourseLeaveButton);
@@ -65,28 +75,50 @@ public class CourseDetailsActivity extends AppCompatActivity {
             firebaseClient.deleteCourse(course);
             Toast.makeText(this, "Sikeres törlés!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, OwnCoursesActivity.class));
+            notificationHandler.send(course.getTitle() + " című kurzus törölve lett!");
         });
 
         saveButton.setOnClickListener(view -> {
             String title = titleEditText.getText().toString();
             String shortDesc = shortDescriptionEditText.getText().toString();
             String desc = descriptionEditText.getText().toString();
-            double price = Double.parseDouble(priceEditText.getText().toString());
+            String price = priceEditText.getText().toString();
             String startDate = startDateEditText.getText().toString();
-            int userCount = Integer.parseInt(userCountEditText.getText().toString());
 
-//            TODO validalas
+            if (title.equals("") || shortDesc.equals("") || desc.equals("") || startDate.equals("") || price.equals("")) {
+                Toast.makeText(CourseDetailsActivity.this, "Minden mezőt ki kell tölteni", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (!startDate.matches("^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$")) {
+                startDateEditText.setError("Nem megfelelő formátum (yyyy-mm-dd)");
+                return;
+            }
+
+            Date start = null;
+
+            try {
+                start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Date now = new Date(System.currentTimeMillis());
+
+            if (start == null || start.before(now)) {
+                Toast.makeText(this, "A mai nap előtti dátumot nem adhat meg kezdésnek", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             course.setTitle(title);
             course.setShort_description(shortDesc);
             course.setDescription(desc);
-            course.setPrice(price);
+            course.setPrice(Double.parseDouble(price));
             course.setStart_date(startDate);
-            course.setUserCount(userCount);
 
             firebaseClient.modifyCourse(course);
             Toast.makeText(this, "Sikeres frissítés!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, OwnCoursesActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         });
 
         enrollButton.setOnClickListener(view -> {
@@ -95,7 +127,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
             firebaseClient.modifyCourse(course);
             Toast.makeText(this, "Sikeres jelentkezés!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, OwnCoursesActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         });
 
         leaveButton.setOnClickListener(view -> {
@@ -103,7 +135,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             course.setUsersList(usersList);
             firebaseClient.modifyCourse(course);
             Toast.makeText(this, "Sikeres kilépés!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, OwnCoursesActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         });
     }
 
