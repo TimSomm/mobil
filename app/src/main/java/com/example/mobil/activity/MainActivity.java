@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.mobil.model.FirebaseClient;
+import com.example.mobil.notification.NotificationHandler;
 
 public class MainActivity extends AppCompatActivity {
     private final FirebaseClient firebaseClient = new FirebaseClient();
+    private NotificationHandler notificationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
             navigateTo(new Intent(this, HomeActivity.class));
         } else {
             setContentView(R.layout.activity_main);
+            notificationHandler = new NotificationHandler(this);
 
             Button registerButton = findViewById(R.id.register);
             Button loginButton = findViewById(R.id.login);
@@ -40,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateTo(Intent intent) {
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        notificationHandler.send("Siess vissza tanulni!");
     }
 }

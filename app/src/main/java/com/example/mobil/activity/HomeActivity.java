@@ -8,6 +8,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,14 +18,17 @@ import android.widget.TextView;
 import com.example.mobil.adapter.EnrolledCourseAdapter;
 import com.example.mobil.model.FirebaseClient;
 import com.example.mobil.model.User;
+import com.example.mobil.notification.NotificationHandler;
 import com.example.mobil.notification.NotificationJobService;
 
 public class HomeActivity extends AppCompatActivity {
-    private static final String LOG_TAG = HomeActivity.class.getName();
     private final FirebaseClient firebaseClient = new FirebaseClient();
+    private static final String PREF_KEY = HomeActivity.class.getPackage().toString();
     private User user;
+    private NotificationHandler notificationHandler;
 
     private TextView welcomeTextView;
+    private SharedPreferences preferences;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -35,6 +39,8 @@ public class HomeActivity extends AppCompatActivity {
             navigateTo(new Intent(this, MainActivity.class));
         } else {
             setContentView(R.layout.activity_home);
+            preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
+            notificationHandler = new NotificationHandler(this);
 
             welcomeTextView = findViewById(R.id.welcomeTextView);
             Button profileButton = findViewById(R.id.profile);
@@ -54,6 +60,9 @@ public class HomeActivity extends AppCompatActivity {
             });
 
             logoutButton.setOnClickListener(view -> {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("email", user.getEmail());
+                editor.apply();
                 firebaseClient.logOut();
                 navigateTo(new Intent(this, MainActivity.class));
             });
@@ -79,5 +88,11 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         this.finishAffinity();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        notificationHandler.send("Siess vissza tanulni!");
     }
 }
