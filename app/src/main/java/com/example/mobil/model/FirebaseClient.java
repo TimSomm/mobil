@@ -15,7 +15,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class FirebaseClient {
@@ -99,6 +102,19 @@ public class FirebaseClient {
 
     public void modifyCourse(Course course) {
         firebaseFirestore.collection(COURSE_COLLECTION).document(course.getId()).set(course);
+    }
+
+    public void deleteCourseForUser(User user) {
+        firebaseFirestore.collection(COURSE_COLLECTION)
+                .whereEqualTo("ownerId", user.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document: task.getResult()) {
+                            document.getReference().delete();
+                        }
+                    }
+                });
     }
 
     public void deleteCourse(Course course) {

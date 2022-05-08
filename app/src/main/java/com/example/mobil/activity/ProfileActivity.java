@@ -71,15 +71,16 @@ public class ProfileActivity extends AppCompatActivity {
 
             firebaseClient.modifyUser(newUser, user.getEmail(), user.getPassword());
             Toast.makeText(ProfileActivity.this, "Sikeres frissítés!", Toast.LENGTH_LONG).show();
-            navigateUpTo(new Intent(this, HomeActivity.class));
+            navigateTo(new Intent(this, HomeActivity.class));
         });
 
         deleteButton.setOnClickListener(view -> {
+            firebaseClient.deleteCourseForUser(user);
             firebaseClient.deleteUser(user);
             firebaseClient.deleteAuthUser(firebaseClient.getCurrentUser());
             firebaseClient.logOut();
             Toast.makeText(ProfileActivity.this, "Sikeres törlés!", Toast.LENGTH_LONG).show();
-            navigateUpTo(new Intent(this, MainActivity.class));
+            navigateTo(new Intent(this, MainActivity.class));
         });
 
         firebaseClient.getUser(firebaseClient.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {

@@ -64,11 +64,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         course = getIntent().getParcelableExtra("course");
 
-        initData();
-
         if (firebaseClient.getCurrentUser() != null) {
             currentId = firebaseClient.getCurrentUser().getUid();
         }
+        
+        initData();
 
         refreshButtons();
 
